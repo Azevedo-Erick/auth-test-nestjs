@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsuarioModule } from 'src/usuario/usuario.module';
@@ -8,15 +9,19 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-  imports:[PassportModule, UsuarioModule, JwtModule.register(
-    {
-      privateKey:'I9fpX8/p1tkqqnpwsdK2imk3SPC+1MTPOkHqT+ewIYk=',
+  imports:[PassportModule, UsuarioModule, JwtModule.registerAsync({
+    imports: [ConfigModule],
+    useFactory: async (configService: ConfigService) => ({
+      privateKey:configService.get('JWT_SECRET_KEY'),
       signOptions:{
         expiresIn:'60s'
       }
-    }
-  )],
+    }),
+    inject: [ConfigService],
+  })],
+  
   providers: [AuthService, LocalStrategy,JwtStrategy],
-  exports:[AuthService]
+  exports:[AuthService],
+  
 })
 export class AuthModule {}
