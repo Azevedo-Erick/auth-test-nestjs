@@ -8,7 +8,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-  imports:[PassportModule, UsuarioModule,JwtService, JwtModule.register(
+  imports:[PassportModule, UsuarioModule, JwtModule.register(
     {
       privateKey:'I9fpX8/p1tkqqnpwsdK2imk3SPC+1MTPOkHqT+ewIYk=',
       signOptions:{

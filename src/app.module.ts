@@ -6,7 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { UsuarioModule } from './usuario/usuario.module';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
-import { RolesGuard } from './auth/roles.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
