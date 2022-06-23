@@ -3,30 +3,30 @@ services:
   db:
     image: postgres:14.1-alpine
     restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - '5432:5432'
     volumes:
       - ./db:/var/lib/postgresql/data
     expose:
       - '5432'
+    env_file:
+      - '.env'
+    
+    
   authapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     depends_on:
-      - db
+      db:
+        condition: service_completed_successfully
     ports:
       - "3000:3000"
-      - "5432:5432"
+      - '5432:5432'
     restart: always
+    env_file:
+      - '.env'
+
     
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-  
+   
 volumes:
   db:
     driver: local
