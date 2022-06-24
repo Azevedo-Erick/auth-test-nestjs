@@ -8,10 +8,12 @@ import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { Websocket } from './websocket';
 
 @Module({
   imports: [AuthModule, AuthModule, UsuarioModule, PostModule, CategoryModule],
   controllers: [AppController],
+  providers: [Websocket],
  
 })
 export class AppModule {}

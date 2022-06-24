@@ -13,17 +13,17 @@ services:
       - '.env'
     
     
-  authapp:
-    build: .
-    depends_on:
-      db:
-        condition: service_completed_successfully
-    ports:
-      - "3000:3000"
-      - '5432:5432'
-    restart: always
-    env_file:
-      - '.env'
+  # authapp:
+  #   build: .
+  #   depends_on:
+  #     db:
+  #       condition: service_completed_successfully
+  #   ports:
+  #     - "3000:3000"
+  #     - '5432:5432'
+  #   restart: always
+  #   env_file:
+  #     - '.env'
 
     
    
