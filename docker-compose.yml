@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   db:
+    hostname: db
     image: postgres:14.1-alpine
     restart: always
     ports:
@@ -11,10 +12,13 @@ services:
       - '5432'
     env_file:
       - '.env'
+    networks:
+      - local
     
     
   # authapp:
   #   build: .
+  #   hostname: authapp
   #   depends_on:
   #     db:
   #       condition: service_completed_successfully
@@ -24,8 +28,12 @@ services:
   #   restart: always
   #   env_file:
   #     - '.env'
+  #   networks:
+  #     - local
 
-    
+networks:
+  local:
+    driver: bridge
    
 volumes:
   db:

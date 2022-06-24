@@ -19,14 +19,16 @@ export class Websocket implements OnGatewayInit, OnGatewayConnection, OnGatewayD
     @SubscribeMessage('msgToServer')
     print(client:Socket, payload:string   ){
         this.logger.log(`Client ${client.id} send message ${payload}`);
-        this.server.emit('msgToClient',payload, client.id);
+        client.emit('msgToClient', payload);
     }
+
 
     handleDisconnect(client: Socket) {
         this.logger.log(`Client disconnected ${client.id}`);
     }
     handleConnection(client: Socket, ...args: any[]) {
-        this.logger.log(`Client connected ${client.id}`);
+        client.join('sala')
+        this.logger.log(`Client connected ${client.id}, total: ${this.server.engine.clientsCount}`);
     }
     afterInit(server: any) {
         this.logger.log('WebSocket is ready');
